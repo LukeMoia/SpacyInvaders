@@ -1,0 +1,8 @@
+D:\ETML_module_en_cours\Projet_SpacyInvaders\SpacyInvaders\bin\Debug\SpacyInvaders.exe.config
+D:\ETML_module_en_cours\Projet_SpacyInvaders\SpacyInvaders\bin\Debug\SpacyInvaders.exe
+D:\ETML_module_en_cours\Projet_SpacyInvaders\SpacyInvaders\bin\Debug\SpacyInvaders.pdb
+D:\ETML_module_en_cours\Projet_SpacyInvaders\SpacyInvaders\obj\Debug\SpacyInvaders.csproj.AssemblyReference.cache
+D:\ETML_module_en_cours\Projet_SpacyInvaders\SpacyInvaders\obj\Debug\SpacyInvaders.csproj.SuggestedBindingRedirects.cache
+D:\ETML_module_en_cours\Projet_SpacyInvaders\SpacyInvaders\obj\Debug\SpacyInvaders.csproj.CoreCompileInputs.cache
+D:\ETML_module_en_cours\Projet_SpacyInvaders\SpacyInvaders\obj\Debug\SpacyInvaders.exe
+D:\ETML_module_en_cours\Projet_SpacyInvaders\SpacyInvaders\obj\Debug\SpacyInvaders.pdb
