@@ -5,3 +5,4 @@ D:\ETML_module_en_cours\Projet_SpacyInvaders\SpacyInvaders\obj\Debug\SpacyInvade
 D:\ETML_module_en_cours\Projet_SpacyInvaders\SpacyInvaders\obj\Debug\SpacyInvaders.csproj.CoreCompileInputs.cache
 D:\ETML_module_en_cours\Projet_SpacyInvaders\SpacyInvaders\obj\Debug\SpacyInvaders.exe
 D:\ETML_module_en_cours\Projet_SpacyInvaders\SpacyInvaders\obj\Debug\SpacyInvaders.pdb
+D:\ETML_module_en_cours\Projet_SpacyInvaders\SpacyInvaders\obj\Debug\SpacyInvaders.csproj.SuggestedBindingRedirects.cache
