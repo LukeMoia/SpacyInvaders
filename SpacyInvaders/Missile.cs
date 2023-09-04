@@ -11,17 +11,30 @@ namespace SpacyInvaders
         private int Hauteur { get; set; }
         private string Skin { get; set; }
         private int Largeur { get; set; }
-        private int Mouvement = -1;
+        private int Mouvement;
 
-        public Missile(int hauteur, int longueur, string skin)
+        public Missile(int hauteur, int longueur, string skin, int mouvement)
         {
             Hauteur = hauteur;
             Largeur = longueur;
             Skin = skin;
+            Mouvement = mouvement;
         }
-        public void Misille()
+        public void MisilleMouvement()
         {
+            Console.SetCursorPosition(Largeur, Hauteur);
+            Console.Write(" ");
+            if (Hauteur + Mouvement >= 0)
+            {
+                Hauteur += Mouvement;
+                Console.SetCursorPosition(Largeur, Hauteur);
+                Console.Write(Skin);
+            }
+        }
 
+        public bool MissileAfficher()
+        {
+            return Hauteur == 0;
         }
     }
 }

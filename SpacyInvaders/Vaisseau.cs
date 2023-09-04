@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpacyInvaders
 {
@@ -17,10 +13,11 @@ namespace SpacyInvaders
         {
             Hauteur = hauteur;
             Skin = skin;
+            MissileVaisseau = new Missile(0, Largeur + Mouvement, "|", -1);
         }
         public void tirer()
         {
-            MissileVaisseau = new Missile();
+            MissileVaisseau = new Missile(Hauteur, Largeur + Mouvement, "|", -1);
         }
         public void ChangementMouvement(int val)
         {
@@ -29,16 +26,25 @@ namespace SpacyInvaders
                 Mouvement = val;
             }
         }
-        public void Deplacement()
+        public void DeplacementVaisseau()
         {
+            if (MissileVaisseau != null)
+            {
+                MissileVaisseau.MisilleMouvement();
+            }
             Console.SetCursorPosition(Largeur, Hauteur);
             Console.Write(" ");
             if (Largeur + Mouvement >= 0 && Largeur + Mouvement < Console.BufferWidth)
             {
-            Largeur += Mouvement;
+                Largeur += Mouvement;
             }
             Console.SetCursorPosition(Largeur, Hauteur);
             Console.Write(Skin);
+        }
+
+        public bool MissileAfficher()
+        {
+            return MissileVaisseau.MissileAfficher();
         }
     }
 }

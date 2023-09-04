@@ -107,7 +107,7 @@ namespace SpacyInvaders
                 for (;;)
                 {
                     cskConsole = Console.ReadKey().Key;
-                    if (cskConsole == ConsoleKey.Spacebar)
+                    if (cskConsole == ConsoleKey.Spacebar && vaisseau.MissileAfficher())
                     {
                         vaisseau.tirer();
                     }
@@ -137,7 +137,7 @@ namespace SpacyInvaders
         {
             timTimerJeux.Enabled = true;
             timTimerJeux.AutoReset = true;
-            timTimerJeux.Interval = 300;
+            timTimerJeux.Interval = 150;
             timTimerJeux.Start();
             timTimerJeux.Elapsed += Jeux;
         }
@@ -149,12 +149,7 @@ namespace SpacyInvaders
             Console.Write(strPoints + intPoints);
             Console.SetCursorPosition(Console.BufferWidth - strPoints.Length - 1, 1);
             Console.Write(strFPS + intLangue);
-            vaisseau.Deplacement();
-            // si il y a un missile
-            /*if ()
-            {
-
-            }*/
+            vaisseau.DeplacementVaisseau();
         }
     }
 }
