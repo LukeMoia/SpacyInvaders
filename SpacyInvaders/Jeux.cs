@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Timers;
+using System.Threading;
 
 namespace SpacyInvaders
 {
     internal class jeux
     {
-        Timer timTimerJeux = new Timer();
+        System.Timers.Timer timTimerJeux = new System.Timers.Timer();
         int intLangue { get; set; }
         string strPoints = "";
         string strFPS = "FPS: ";
@@ -18,7 +15,9 @@ namespace SpacyInvaders
         string strOption = "";
         string strResult = "";
         string strQuit = "";
-        Vaisseau vaisseau = new Vaisseau(10,"A");
+        int AffichageWidth = Console.BufferWidth; // pour l'affichage des points et FPS
+        Vaisseau vaisseau = new Vaisseau(10, "A");
+        Ennemi ennemi1 = new Ennemi(1,"E");
         public void AffichageMenuLangue()
         {
             Console.Write("Language (0=fr, 1=en) : ");
@@ -104,20 +103,22 @@ namespace SpacyInvaders
             {
                 // méthode pour lancer le jeu
                 LancerLeJeu();
-                for (;;)
+                for (; ; )
                 {
                     cskConsole = Console.ReadKey().Key;
                     if (cskConsole == ConsoleKey.Spacebar && vaisseau.MissileAfficher())
                     {
                         vaisseau.tirer();
                     }
-                    else if (cskConsole == ConsoleKey.RightArrow)
+                    if (cskConsole == ConsoleKey.RightArrow)
                     {
                         vaisseau.ChangementMouvement(1);
+                        vaisseau.DeplacementVaisseau();
                     }
-                    else if (cskConsole == ConsoleKey.LeftArrow)
+                    if (cskConsole == ConsoleKey.LeftArrow)
                     {
                         vaisseau.ChangementMouvement(-1);
+                        vaisseau.DeplacementVaisseau();
                     }
                 }
             }
@@ -135,21 +136,35 @@ namespace SpacyInvaders
 
         private void LancerLeJeu()
         {
+            Console.Clear();
             timTimerJeux.Enabled = true;
             timTimerJeux.AutoReset = true;
             timTimerJeux.Interval = 150;
             timTimerJeux.Start();
             timTimerJeux.Elapsed += Jeux;
+            AfficherPointFPS();
         }
         private void Jeux(object valeur, System.Timers.ElapsedEventArgs Temps)
         {
-            Console.Clear();
+            if (AffichageWidth != Console.BufferWidth)
+            {
+                Console.Clear();
+                AfficherPointFPS();
+                AffichageWidth = Console.BufferWidth;
+            }
             Console.CursorVisible = false;
+            vaisseau.AfficherVaisseau();
+            vaisseau.MissileMouvement();
+            ennemi1.DeplacementVaisseau();
+            ennemi1.DirectionEnnemi();
+        }
+
+        public void AfficherPointFPS()
+        {
             Console.SetCursorPosition(Console.BufferWidth - strPoints.Length - 1, 0);
             Console.Write(strPoints + intPoints);
             Console.SetCursorPosition(Console.BufferWidth - strPoints.Length - 1, 1);
             Console.Write(strFPS + intLangue);
-            vaisseau.DeplacementVaisseau();
         }
     }
 }

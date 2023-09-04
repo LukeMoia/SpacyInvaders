@@ -13,11 +13,11 @@ namespace SpacyInvaders
         {
             Hauteur = hauteur;
             Skin = skin;
-            MissileVaisseau = new Missile(0, Largeur + Mouvement, "|", -1);
+            MissileVaisseau = new Missile(0, Largeur, "|", -1);
         }
         public void tirer()
         {
-            MissileVaisseau = new Missile(Hauteur, Largeur + Mouvement, "|", -1);
+            MissileVaisseau = new Missile(Hauteur, Largeur, "|", -1);
         }
         public void ChangementMouvement(int val)
         {
@@ -28,10 +28,6 @@ namespace SpacyInvaders
         }
         public void DeplacementVaisseau()
         {
-            if (MissileVaisseau != null)
-            {
-                MissileVaisseau.MisilleMouvement();
-            }
             Console.SetCursorPosition(Largeur, Hauteur);
             Console.Write(" ");
             if (Largeur + Mouvement >= 0 && Largeur + Mouvement < Console.BufferWidth)
@@ -41,10 +37,20 @@ namespace SpacyInvaders
             Console.SetCursorPosition(Largeur, Hauteur);
             Console.Write(Skin);
         }
+        public void AfficherVaisseau()
+        {
+            Console.SetCursorPosition(Largeur, Hauteur);
+            Console.Write(Skin);
+        }
 
         public bool MissileAfficher()
         {
             return MissileVaisseau.MissileAfficher();
+        }
+
+        public void MissileMouvement()
+        {
+            MissileVaisseau.MisilleMouvement();
         }
     }
 }
