@@ -22,14 +22,19 @@ namespace SpacyInvaders
         }
         public void MisilleMouvement() //pour faire avancer le missile dans jeux
         {
-            Console.SetCursorPosition(Largeur, Hauteur);
-            Console.Write(" ");
+            SuppresionMissile();
             if (Hauteur + Mouvement >= 0 && Hauteur + Mouvement <= Console.WindowHeight)
             {
                 Hauteur += Mouvement;
                 Console.SetCursorPosition(Largeur, Hauteur);
                 Console.Write(Skin);
             }
+        }
+
+        public void SuppresionMissile()// pour faire disparaitre le missile
+        {
+            Console.SetCursorPosition(Largeur, Hauteur);
+            Console.Write(" ");
         }
 
         public bool MissileAfficher() // pour pouvoir tirer à nouveau

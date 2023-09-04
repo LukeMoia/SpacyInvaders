@@ -29,7 +29,7 @@ namespace SpacyInvaders
         {
             if (MissileEnnemi.MissileAfficher())
             {
-                
+                MissileEnnemi.SuppresionMissile();
                 tirer();
             }
             else if (MissileEnnemi != null)
