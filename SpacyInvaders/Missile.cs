@@ -23,11 +23,15 @@ namespace SpacyInvaders
         public void MisilleMouvement() //pour faire avancer le missile dans jeux
         {
             SuppresionMissile();
-            if (Hauteur + Mouvement >= 0 && Hauteur + Mouvement <= Console.WindowHeight)
+            if (Hauteur + Mouvement > 0 && Hauteur + Mouvement <= Console.WindowHeight)
             {
                 Hauteur += Mouvement;
                 Console.SetCursorPosition(Largeur, Hauteur);
                 Console.Write(Skin);
+            }
+            else if (Hauteur + Mouvement >= 0 && Hauteur + Mouvement <= Console.WindowHeight)
+            {
+                Hauteur += Mouvement;
             }
         }
 
@@ -40,6 +44,10 @@ namespace SpacyInvaders
         public bool MissileAfficher() // pour pouvoir tirer à nouveau
         {
             return Hauteur == 0 || Hauteur >= Console.WindowHeight - 1;
+        }
+        public bool MissileObstacle(int hauteur, int longueur)
+        {
+            return hauteur == Hauteur && longueur == Largeur;
         }
     }
 }

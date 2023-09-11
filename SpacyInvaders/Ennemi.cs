@@ -8,18 +8,23 @@ namespace SpacyInvaders
 {
     internal class Ennemi
     {
-        private int Hauteur { get; set; } = 1;
+        public int Hauteur { get; private set; }
         private int Mouvement { get; set; }
-        private int Largeur { get; set; }
+        public int Largeur { get; private set; }
         private string Skin { get; set; }
-        private Missile MissileEnnemi { get; set; }
+        public Missile MissileEnnemi { get; private set; }
         public int pointEnnemi { get; set; }
-        public Ennemi(int pointennemi, string skin)
+        public Ennemi(int pointennemi, string skin, int hauteur, int largeur)
         {
             pointEnnemi = pointennemi;
             Skin = skin;
+            Hauteur = hauteur;
+            if (largeur < Console.BufferWidth - 10)
+            {
+                Largeur = largeur;
+            }
             Mouvement = 1;
-            MissileEnnemi = new Missile(Console.WindowHeight + 1, Largeur + Mouvement, "|", 1);
+            MissileEnnemi = new Missile(Console.WindowHeight - 1, Largeur + Mouvement, "|", 1);
         }
         public void tirer()
         {
@@ -27,18 +32,9 @@ namespace SpacyInvaders
         }
         public void DeplacementVaisseau()
         {
-            if (MissileEnnemi.MissileAfficher())
-            {
-                MissileEnnemi.SuppresionMissile();
-                tirer();
-            }
-            else if (MissileEnnemi != null)
-            {
-                MissileEnnemi.MisilleMouvement();
-            }
             Console.SetCursorPosition(Largeur, Hauteur);
             Console.Write(" ");
-            if (Largeur + Mouvement >= 0 && Largeur + Mouvement < Console.BufferWidth)
+            if (Largeur + Mouvement >= 0 && Largeur + Mouvement <= Console.BufferWidth)
             {
                 Largeur += Mouvement;
             }
@@ -61,6 +57,19 @@ namespace SpacyInvaders
                 Console.Write(" ");
                 Mouvement = 1;
                 Hauteur++;
+            }
+        }
+
+        public void MissileMouvement()
+        {
+            if (MissileEnnemi.MissileAfficher())
+            {
+                MissileEnnemi.SuppresionMissile();
+                tirer();
+            }
+            else if (MissileEnnemi != null)
+            {
+                MissileEnnemi.MisilleMouvement();
             }
         }
     }

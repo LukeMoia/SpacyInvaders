@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Timers;
 using System.Threading;
+using System.Collections.Generic;
 
 namespace SpacyInvaders
 {
@@ -11,15 +12,36 @@ namespace SpacyInvaders
         string strPoints = "";
         string strFPS = "FPS: ";
         int intPoints = 0;
+        int intCompteur = 0;
         string strPlay = "";
         string strOption = "";
         string strResult = "";
         string strQuit = "";
         int AffichageWidth = Console.BufferWidth; // pour l'affichage des points et FPS
         Vaisseau vaisseau = new Vaisseau(10, "A");
-        Ennemi ennemi1 = new Ennemi(1,"E");
+        Ennemi ennemi1 = new Ennemi(1, "E", 1, 0);
+        Ennemi ennemi2 = new Ennemi(1, "Z", 1, 3);
+        List<Ennemi> listennListeEnnemi = new List<Ennemi>();
         public void AffichageMenuLangue()
         {
+            /////////////// initialisation des paramètres /////////////////////
+            strPoints = "";
+            strFPS = "FPS: ";
+            intPoints = 0;
+            intCompteur = 0;
+            strPlay = "";
+            strOption = "";
+            strQuit = "";
+            AffichageWidth = Console.BufferWidth; // pour l'affichage des points et FPS
+            timTimerJeux = new System.Timers.Timer();
+            vaisseau = new Vaisseau(10, "A");
+            ennemi1 = new Ennemi(1, "E", 1, 0);
+            ennemi2 = new Ennemi(1, "Z", 1, 3);
+            listennListeEnnemi = new List<Ennemi>();
+
+            ///////////////////// program /////////////////////
+            Console.CursorVisible = true;
+            Console.Clear();
             Console.Write("Language (0=fr, 1=en) : ");
             try
             {
@@ -56,7 +78,6 @@ namespace SpacyInvaders
                 strPoints = "Points: ";
             }
 
-            Console.WriteLine($"SpicyInvader II\n---------------\n\n{strPlay}\n{strOption}\n{strResult}\n{strQuit}");
             // méthode pour pouvoir faire la boucle
             BoucleMenu();
         }
@@ -103,39 +124,25 @@ namespace SpacyInvaders
             {
                 // méthode pour lancer le jeu
                 LancerLeJeu();
-                for (; ; )
-                {
-                    cskConsole = Console.ReadKey().Key;
-                    if (cskConsole == ConsoleKey.Spacebar && vaisseau.MissileAfficher())
-                    {
-                        vaisseau.tirer();
-                    }
-                    if (cskConsole == ConsoleKey.RightArrow)
-                    {
-                        vaisseau.ChangementMouvement(1);
-                        vaisseau.DeplacementVaisseau();
-                    }
-                    if (cskConsole == ConsoleKey.LeftArrow)
-                    {
-                        vaisseau.ChangementMouvement(-1);
-                        vaisseau.DeplacementVaisseau();
-                    }
-                }
+                vaisseau.BoucleDeDéplacementJoueur(timTimerJeux);
             }
             else if (x - intMin == 1)
             {
-                // méthode pour les options
+                // méthode pour les options to do
 
             }
             else if (x - intMin == 2)
             {
-                // méthode pour les résultats
+                // méthode pour les résultats to do
 
             }
+            AffichageMenuLangue();
         }
 
         private void LancerLeJeu()
         {
+            listennListeEnnemi.Add(ennemi1);
+            listennListeEnnemi.Add(ennemi2);
             Console.Clear();
             timTimerJeux.Enabled = true;
             timTimerJeux.AutoReset = true;
@@ -144,6 +151,16 @@ namespace SpacyInvaders
             timTimerJeux.Elapsed += Jeux;
             AfficherPointFPS();
         }
+        public void FinDeLaPartie(string message)
+        {
+            Console.Clear();
+            timTimerJeux.Stop();
+            timTimerJeux.Enabled = false;
+            timTimerJeux.Elapsed -= Jeux;
+            Console.WriteLine(message);
+            Thread.Sleep(1000);
+        }
+
         private void Jeux(object valeur, System.Timers.ElapsedEventArgs Temps)
         {
             if (AffichageWidth != Console.BufferWidth)
@@ -155,8 +172,35 @@ namespace SpacyInvaders
             Console.CursorVisible = false;
             vaisseau.AfficherVaisseau();
             vaisseau.MissileMouvement();
-            ennemi1.DeplacementVaisseau();
-            ennemi1.DirectionEnnemi();
+            for (int x = 0; x < listennListeEnnemi.Count; x++)
+            {
+                if (vaisseau.MissileVaisseau.MissileObstacle(listennListeEnnemi[x].Hauteur, listennListeEnnemi[x].Largeur))
+                {
+                    listennListeEnnemi[x].MissileEnnemi.SuppresionMissile();
+                    listennListeEnnemi.Remove(listennListeEnnemi[x]);
+                    if (x > 0)
+                    {
+                        x--;
+                    }
+                    if (listennListeEnnemi.Count == 0)
+                    {
+                        FinDeLaPartie("Vous avez gagnez");
+                        break;
+                    }
+                }
+                listennListeEnnemi[x].MissileMouvement();
+                if (listennListeEnnemi[x].MissileEnnemi.MissileObstacle(vaisseau.Hauteur, vaisseau.Largeur))
+                {
+                    FinDeLaPartie("Vous avez perdu");
+                    break;
+                }
+                if (intCompteur % 3 == 2)
+                {
+                    listennListeEnnemi[x].DeplacementVaisseau();
+                }
+                listennListeEnnemi[x].DirectionEnnemi();
+            }
+            intCompteur++;
         }
 
         public void AfficherPointFPS()

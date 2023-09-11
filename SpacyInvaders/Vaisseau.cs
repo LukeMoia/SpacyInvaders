@@ -1,14 +1,15 @@
 ﻿using System;
+using System.Threading;
 
 namespace SpacyInvaders
 {
     internal class Vaisseau
     {
-        private int Hauteur { get; set; }
+        public int Hauteur { get; private set; }
         private int Mouvement { get; set; }
-        private int Largeur { get; set; }
+        public int Largeur { get; private set; }
         private string Skin { get; set; }
-        private Missile MissileVaisseau { get; set; }
+        public Missile MissileVaisseau { get; private set; }
         public Vaisseau(int hauteur, string skin)
         {
             Hauteur = hauteur;
@@ -43,14 +44,39 @@ namespace SpacyInvaders
             Console.Write(Skin);
         }
 
-        public bool MissileAfficher()
-        {
-            return MissileVaisseau.MissileAfficher();
-        }
-
         public void MissileMouvement()
         {
             MissileVaisseau.MisilleMouvement();
+        }
+
+        public void BoucleDeDéplacementJoueur(System.Timers.Timer time)
+        {
+            ConsoleKey cskConsoleKey;
+            for (int y = 0; ; y++)
+            {
+                cskConsoleKey = Console.ReadKey(true).Key;
+                if (time.Enabled == true)
+                {
+                    if (cskConsoleKey == ConsoleKey.Spacebar && MissileVaisseau.MissileAfficher())
+                    {
+                        tirer();
+                    }
+                    if (cskConsoleKey == ConsoleKey.RightArrow)
+                    {
+                        ChangementMouvement(1);
+                        DeplacementVaisseau();
+                    }
+                    if (cskConsoleKey == ConsoleKey.LeftArrow)
+                    {
+                        ChangementMouvement(-1);
+                        DeplacementVaisseau();
+                    }
+                }
+                else
+                {
+                    break;
+                }
+            }
         }
     }
 }
