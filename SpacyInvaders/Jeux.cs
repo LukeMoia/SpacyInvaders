@@ -2,6 +2,7 @@
 using System.Timers;
 using System.Threading;
 using System.Collections.Generic;
+using MySql.Data.MySqlClient;
 
 namespace SpacyInvaders
 {
@@ -133,8 +134,12 @@ namespace SpacyInvaders
             }
             else if (x - intMin == 2)
             {
-                // méthode pour les résultats to do
-
+                // méthode pour les résultats
+                AfficherScore();
+            }
+            else
+            {
+                Environment.Exit(0);
             }
             AffichageMenuLangue();
         }
@@ -158,6 +163,7 @@ namespace SpacyInvaders
             timTimerJeux.Enabled = false;
             timTimerJeux.Elapsed -= Jeux;
             Console.WriteLine(message);
+            insererDonnees();
             Thread.Sleep(1000);
         }
 
@@ -203,12 +209,86 @@ namespace SpacyInvaders
             intCompteur++;
         }
 
+        public void insererDonnees()
+        {
+            string connectionString = "Server=localhost;Port=6033;Database=db_space_invaders;User ID=root;Password=root;";
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            MySqlCommand command = connection.CreateCommand();
+            MySqlCommand commandCOUNT = connection.CreateCommand();
+            MySqlDataReader reader;
+
+            commandCOUNT.CommandText = $"SELECT COUNT(*) FROM t_joueur";
+            try
+            {
+                // Connexion à la base de données
+
+                connection.Open();
+                reader = commandCOUNT.ExecuteReader();
+                reader.Read();
+                command.CommandText = $"INSERT INTO t_joueur (idJoueur, jouPseudo, jouNombrePoints)VALUES('{reader.GetInt32(0) + 1}', '{/*nom joueur*/"lol"}', '{/*nombre de points*/0}'); ";
+                command.ExecuteNonQuery();
+                Console.CursorVisible = false;
+                Console.WriteLine("Données de la partie envoyées dans la base de données");
+            }
+            catch (Exception ex)
+
+            {
+                Console.WriteLine(ex.Message);
+            }
+            Console.WriteLine("Appuyer pour continuer...");
+            Console.ReadLine();
+        }
+
         public void AfficherPointFPS()
         {
             Console.SetCursorPosition(Console.BufferWidth - strPoints.Length - 1, 0);
             Console.Write(strPoints + intPoints);
             Console.SetCursorPosition(Console.BufferWidth - strPoints.Length - 1, 1);
             Console.Write(strFPS + intLangue);
+        }
+
+        public void AfficherScore()
+        {
+            Console.Clear();
+            string connectionString = "Server=localhost;Port=6033;Database=db_space_invaders;User ID=root;Password=root;";
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            MySqlCommand command = connection.CreateCommand();
+            MySqlDataReader reader;
+
+            command.CommandText = "SELECT * FROM t_joueur ORDER BY jouNombrepoints DESC LIMIT 5";
+            try
+
+            {
+
+                // Connexion à la base de données
+
+                connection.Open();
+                reader = command.ExecuteReader();
+                Console.CursorVisible = false;
+                Console.WriteLine("        HIGHSCORE\n------------------------");
+                Console.SetCursorPosition(0, 3);
+                for (int x = 0; x < 5; x++)
+                {
+                    Console.Write(x + 1 + "   ");
+                    reader.Read();
+                    for (int y = 1; y < 3; y++)
+                    {
+                        Console.Write(reader.GetString(y));
+                        if (y < 3 - 1)
+                        {
+                            Console.SetCursorPosition(20, x + 3);
+                        }
+                    }
+                    Console.WriteLine();
+                }
+            }
+            catch (Exception ex)
+
+            {
+                Console.WriteLine(ex.Message);
+            }
+            Console.WriteLine("Appuyer pour continuer...");
+            Console.ReadLine();
         }
     }
 }
