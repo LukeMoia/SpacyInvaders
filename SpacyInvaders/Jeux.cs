@@ -32,6 +32,7 @@ namespace SpacyInvaders
         List<Ennemi> listennListeEnnemi = new List<Ennemi>();
         const string strNomJeux = "SpicyInvader II";
         const string strSousTitreJeu = "---------------";
+        string strNomJoueur = "Default"; // TO DO (faire le nom du joueur)
         public void AffichageMenuLangue()
         {
             /////////////// initialisation des paramètres /////////////////////
@@ -174,7 +175,8 @@ namespace SpacyInvaders
             }
             else if (x - intMin == 1)
             {
-                // méthode pour les options to do
+                // méthode pour les options
+                // TO DO (faire les options)
 
             }
             else if (x - intMin == 2)
