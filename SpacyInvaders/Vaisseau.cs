@@ -5,9 +5,10 @@ namespace SpacyInvaders
 {
     internal class Vaisseau
     {
+        public int score { get; set; }
         public int Hauteur { get; private set; }
         private int Mouvement { get; set; }
-        public int Largeur { get; private set; }
+        public int Largeur { get; private set; } = 10;
         private string Skin { get; set; }
         public Missile MissileVaisseau { get; private set; }
         public Vaisseau(int hauteur, string skin)
@@ -74,6 +75,7 @@ namespace SpacyInvaders
                 }
                 else
                 {
+                    Thread.Sleep(2000);
                     break;
                 }
             }

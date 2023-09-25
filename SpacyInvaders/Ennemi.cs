@@ -28,7 +28,7 @@ namespace SpacyInvaders
         }
         public void tirer()
         {
-            MissileEnnemi = new Missile(Hauteur, Largeur + Mouvement, "|", 1);
+            MissileEnnemi = new Missile(Hauteur + 1, Largeur/* + Mouvement*/, "|", 1);
         }
         public void DeplacementVaisseau()
         {
@@ -69,7 +69,10 @@ namespace SpacyInvaders
             }
             else if (MissileEnnemi != null)
             {
-                MissileEnnemi.MisilleMouvement();
+                /*if (Skin != "E")
+                {*/
+                    MissileEnnemi.MisilleMouvement();
+                /*}*/
             }
         }
     }
