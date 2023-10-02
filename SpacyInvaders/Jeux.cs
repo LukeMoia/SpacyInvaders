@@ -8,6 +8,7 @@ namespace SpacyInvaders
 {
     internal class jeux
     {
+        // variable universelle pour la classe
         System.Timers.Timer timTimerJeux = new System.Timers.Timer();
         int intLangue { get; set; }
         string strPoints = "";
@@ -18,7 +19,7 @@ namespace SpacyInvaders
         string strResult = "";
         string strQuit = "";
         int AffichageWidth = Console.BufferWidth; // pour l'affichage des points et FPS
-        Vaisseau vaisseau = new Vaisseau(10, "A");
+        Vaisseau vaisseau;
         Ennemi ennemi1;
         Ennemi ennemi2;
         Ennemi ennemi3;
@@ -29,35 +30,23 @@ namespace SpacyInvaders
         Ennemi ennemi8;
         Ennemi ennemi9;
         Ennemi ennemi10;
+        Ennemi ennemi11;
+        Ennemi ennemi12;
+        Ennemi ennemi13;
+        Ennemi ennemi14;
+        Ennemi ennemi15;
+        Ennemi ennemi16;
+        Ennemi ennemi17;
+        Ennemi ennemi18;
+        Ennemi ennemi19;
+        Ennemi ennemi20;
+        List<Ennemi> listennListeEnnemiVivant = new List<Ennemi>();
         List<Ennemi> listennListeEnnemi = new List<Ennemi>();
         const string strNomJeux = "SpicyInvader II";
         const string strSousTitreJeu = "---------------";
-        string strNomJoueur = "Default"; // TO DO (faire le nom du joueur)
-        public void AffichageMenuLangue()
+        static Random Random = new Random();
+        public void AffichageMenuLangue() // début du jeux
         {
-            /////////////// initialisation des paramètres /////////////////////
-            strPoints = "";
-            strFPS = "FPS: ";
-            intCompteur = 0;
-            strPlay = "";
-            strOption = "";
-            strQuit = "";
-            AffichageWidth = Console.BufferWidth; // pour l'affichage des points et FPS
-            timTimerJeux = new System.Timers.Timer();
-            vaisseau = new Vaisseau(10, "A");
-            ennemi1 = new Ennemi(3000, "Z", 1, 0);
-            ennemi2 = new Ennemi(3000, "Z", 1, 3);
-            ennemi3 = new Ennemi(3000, "Z", 1, 6);
-            ennemi4 = new Ennemi(3000, "Z", 1, 9);
-            ennemi5 = new Ennemi(3000, "Z", 1, 12);
-            ennemi6 = new Ennemi(3000, "Z", 1, 15);
-            ennemi7 = new Ennemi(3000, "Z", 1, 18);
-            ennemi8 = new Ennemi(3000, "Z", 1, 21);
-            ennemi9 = new Ennemi(3000, "Z", 1, 24);
-            ennemi10 = new Ennemi(3000, "Z", 1, 27);
-            listennListeEnnemi = new List<Ennemi>();
-
-            ///////////////////// program /////////////////////
             for (; true;)
             {
                 Console.CursorVisible = true;
@@ -79,9 +68,43 @@ namespace SpacyInvaders
             }
         }
 
-        private void AffichageMenuPourJouer()
+        private void AffichageMenuPourJouer() // pour reinitialiser les variables de manière correcte
         {
+            /////////////// initialisation des paramètres /////////////////////
+            strPoints = "";
+            strFPS = "FPS: ";
+            intCompteur = 0;
+            strPlay = "";
+            strOption = "";
+            strQuit = "";
+            AffichageWidth = Console.BufferWidth; // pour l'affichage des points et FPS
+            timTimerJeux = new System.Timers.Timer();
+            vaisseau = new Vaisseau(10, 10, "A");
+            listennListeEnnemiVivant.Clear();
+            listennListeEnnemiVivant = new List<Ennemi>();
+            ennemi1 = new Ennemi(3000, "T", 1, 0, 1);
+            ennemi2 = new Ennemi(3000, "R", 1, 3, 1);
+            ennemi3 = new Ennemi(3000, "P", 1, 6, 1);
+            ennemi4 = new Ennemi(3000, "N", 1, 9, 1);
+            ennemi5 = new Ennemi(3000, "M", 1, 12, 1);
+            ennemi6 = new Ennemi(3000, "N", 1, 15, 1);
+            ennemi7 = new Ennemi(3000, "U", 1, 18, 1);
+            ennemi8 = new Ennemi(3000, "V", 1, 21, 1);
+            ennemi9 = new Ennemi(3000, "X", 1, 24, 1);
+            ennemi10 = new Ennemi(3000, "Z", 1, 27, 1);
+            ennemi11 = new Ennemi(3000, "D", 2, 30, -1);
+            ennemi12 = new Ennemi(3000, "S", 2, 3, -1);
+            ennemi13 = new Ennemi(3000, "Y", 2, 6, -1);
+            ennemi14 = new Ennemi(3000, "L", 2, 9, -1);
+            ennemi15 = new Ennemi(3000, "G", 2, 12, -1);
+            ennemi16 = new Ennemi(3000, "H", 2, 15, -1);
+            ennemi17 = new Ennemi(3000, "D", 2, 18, -1);
+            ennemi18 = new Ennemi(3000, "J", 2, 21, -1);
+            ennemi19 = new Ennemi(3000, "Q", 2, 24, -1);
+            ennemi20 = new Ennemi(3000, "B", 2, 27, -1);
+            listennListeEnnemi = new List<Ennemi>() { ennemi1, ennemi2, ennemi3, ennemi4, ennemi5, ennemi6, ennemi7, ennemi8, ennemi9, ennemi10, ennemi11, ennemi12, ennemi13, ennemi14, ennemi15, ennemi16, ennemi17, ennemi18, ennemi19, ennemi20 };
 
+            ///////////////////// program /////////////////////
             if (intLangue == 0)
             {
                 strPlay = "1.Jouer";
@@ -103,35 +126,46 @@ namespace SpacyInvaders
             BoucleMenu();
         }
 
-        private void MenuCouleur(ConsoleColor color, int Boucle, int minimum)
+        private void MenuCouleur(ConsoleColor color, int Boucle, int minimum, int maximum, string str1, string str2, string str3, string str4)
         {
             Console.SetCursorPosition(0, Boucle);
             Console.BackgroundColor = color;
-            Console.WriteLine(strSousTitreJeu.Replace('-',' '));
+            Console.WriteLine(strSousTitreJeu.Replace('-', ' '));
             Console.SetCursorPosition(0, Boucle);
-            if (minimum + 0 == Boucle)
+            if (minimum + 0 == Boucle && str1 != null)
             {
-                Console.WriteLine(strPlay);
+                Console.WriteLine(str1);
             }
-            else if (minimum + 1 == Boucle)
+            else if (minimum + 1 == Boucle && str2 != null)
             {
-                Console.WriteLine(strOption);
+                Console.WriteLine(str2);
             }
-            else if (minimum + 2 == Boucle)
+            else if (minimum + 2 == Boucle && str3 != null)
             {
-                Console.WriteLine(strResult);
+                Console.WriteLine(str3);
             }
-            else if (minimum + 3 == Boucle)
+            else if (minimum + 3 == Boucle && str4 != null)
             {
-                Console.WriteLine(strQuit);
+                Console.WriteLine(str4);
             }
         }
 
-        private void BoucleMenu()
+        /// <summary>
+        /// Il en existe deux version : une a 4 string et une a deux string et une a quatre string
+        /// </summary>
+        /// <param name="minimum"></param>
+        /// <param name="maximu"></param>
+        /// <param name="str1"></param>
+        /// <param name="str2"></param>
+        /// <param name="str3"></param>
+        /// <param name="str4"></param>
+        /// <param name="strmenu"></param>
+        /// <returns></returns>
+        private int Boucle(int minimum, int maximu, string str1, string str2, string str3, string str4, string strmenu)
         {
             ConsoleKey cskConsole = ConsoleKey.A;
-            const int intMax = 6;
-            const int intMin = 3;
+            int intMax = maximu;
+            int intMin = minimum;
             int x = intMin;
 
             Console.CursorVisible = false;
@@ -139,8 +173,8 @@ namespace SpacyInvaders
             {
                 Console.Clear();
                 Console.SetCursorPosition(0, 0);
-                Console.WriteLine($"{strNomJeux}\n{strSousTitreJeu}\n\n{strPlay}\n{strOption}\n{strResult}\n{strQuit}");
-                MenuCouleur(ConsoleColor.Red,x,intMin);
+                Console.WriteLine($"{strmenu}\n{strSousTitreJeu}\n\n{str1}\n{str2}\n{str3}\n{str4}");
+                MenuCouleur(ConsoleColor.Red, x, intMin, maximu, str1, str2, str3, str4);
                 Console.BackgroundColor = ConsoleColor.Black;
                 Console.WriteLine();
                 cskConsole = Console.ReadKey().Key;
@@ -167,19 +201,73 @@ namespace SpacyInvaders
                     }
                 }
             }
-            if (x - intMin == 0)
+            return x - intMin;
+        }
+
+        private int Boucle(int minimum, int maximu, string str1, string str2, string strmenu)
+        {
+            ConsoleKey cskConsole = ConsoleKey.A;
+            int intMax = maximu;
+            int intMin = minimum;
+            int x = intMin;
+
+            Console.CursorVisible = false;
+            for (; cskConsole != ConsoleKey.Enter;)
+            {
+                Console.Clear();
+                Console.SetCursorPosition(0, 0);
+                Console.WriteLine($"{strmenu}\n{strSousTitreJeu}\n\n{str1}\n{str2}");
+                MenuCouleur(ConsoleColor.Red, x, intMin, maximu, str1, str2, null, null);
+                Console.BackgroundColor = ConsoleColor.Black;
+                Console.WriteLine();
+                cskConsole = Console.ReadKey().Key;
+                if (cskConsole == ConsoleKey.DownArrow || cskConsole == ConsoleKey.S)
+                {
+                    if (x != intMax)
+                    {
+                        x++;
+                    }
+                    else
+                    {
+                        x = intMin;
+                    }
+                }
+                else if (cskConsole == ConsoleKey.UpArrow || cskConsole == ConsoleKey.W)
+                {
+                    if (x != intMin)
+                    {
+                        x--;
+                    }
+                    else
+                    {
+                        x = intMax;
+                    }
+                }
+            }
+            return x - intMin;
+        }
+
+        private void BoucleMenu()
+        {
+            int x = 0;
+
+            x = Boucle(3, 6, strPlay, strOption, strResult, strQuit, strNomJeux);
+            if (x == 0)
             {
                 // méthode pour lancer le jeu
                 LancerLeJeu();
                 vaisseau.BoucleDeDéplacementJoueur(timTimerJeux);
             }
-            else if (x - intMin == 1)
+            else if (x == 1)
             {
                 // méthode pour les options
-                // TO DO (faire les options)
+                Console.Clear();
+                Console.SetCursorPosition(0, 0);
+                intLangue = Boucle(3, 4, "Francais", "English", "Option");
+                //// ajouter du son
 
             }
-            else if (x - intMin == 2)
+            else if (x/* - intMin*/ == 2)
             {
                 // méthode pour les résultats
                 AfficherScore();
@@ -188,22 +276,18 @@ namespace SpacyInvaders
             {
                 Environment.Exit(0);
             }
-            AffichageMenuLangue();
+            InsererDonnees();
+            Console.ReadLine();
+            AffichageMenuPourJouer();
         }
 
         private void LancerLeJeu()
         {
             string instruction = "Shoot: Space";
-            listennListeEnnemi.Add(ennemi1);
-            listennListeEnnemi.Add(ennemi2);
-            listennListeEnnemi.Add(ennemi3);
-            listennListeEnnemi.Add(ennemi4);
-            listennListeEnnemi.Add(ennemi5);
-            listennListeEnnemi.Add(ennemi6);
-            listennListeEnnemi.Add(ennemi7);
-            listennListeEnnemi.Add(ennemi8);
-            listennListeEnnemi.Add(ennemi9);
-            listennListeEnnemi.Add(ennemi10);
+            foreach (Ennemi enn in listennListeEnnemi)
+            {
+                listennListeEnnemiVivant.Add(enn);
+            }
             Console.Clear();
             Console.SetCursorPosition(Console.WindowWidth / 2 - instruction.Length, Console.WindowHeight / 2);
             Console.WriteLine(instruction);
@@ -216,65 +300,101 @@ namespace SpacyInvaders
             timTimerJeux.Elapsed += Jeux;
             AfficherPointFPS();
         }
+
         public void FinDeLaPartie(string message)
         {
             Console.Clear();
             timTimerJeux.Stop();
             timTimerJeux.Enabled = false;
             timTimerJeux.Elapsed -= Jeux;
+            Console.SetCursorPosition(0,0);
             Console.WriteLine(message);
-            InsererDonnees();
         }
 
         private void Jeux(object valeur, System.Timers.ElapsedEventArgs Temps)
         {
+            // pour le tir des ennemis
+            int Tir = Random.Next(0,9);
+            List<int> TirList = new List<int>();
+            for(int i = 0;i < Tir; i++)
+            {
+                TirList.Add(Random.Next(listennListeEnnemiVivant.Count));
+            }
+            for (int u = 0;u < TirList.Count;u++)
+            {
+                    if (listennListeEnnemiVivant[TirList[u]].MissileEnnemi.MissileAfficher())
+                    {
+                        listennListeEnnemiVivant[TirList[u]].MissileEnnemi.SuppresionMissile();
+                        listennListeEnnemiVivant[TirList[u]].tirer();
+                    }
+            }
+
+            // changement de la taille de fenètre
             if (AffichageWidth != Console.BufferWidth)
             {
                 Console.Clear();
                 AfficherPointFPS();
                 AffichageWidth = Console.BufferWidth;
             }
+
+            // condition de victoire/défaite et mouvement missile et vaisseau
             Console.CursorVisible = false;
             vaisseau.AfficherVaisseau();
             vaisseau.MissileMouvement();
-            for (int x = 0; x < listennListeEnnemi.Count; x++)
+            for (int x = 0; x < listennListeEnnemiVivant.Count; x++)
             {
-                if (vaisseau.MissileVaisseau.MissileObstacle(listennListeEnnemi[x].Hauteur, listennListeEnnemi[x].Largeur))
+                if (vaisseau.MissileVaisseau.MissileObstacle(listennListeEnnemiVivant[x].Hauteur, listennListeEnnemiVivant[x].Largeur))
                 {
-                    listennListeEnnemi[x].MissileEnnemi.SuppresionMissile();
-                    vaisseau.score += listennListeEnnemi[x].pointEnnemi;
-                    listennListeEnnemi.Remove(listennListeEnnemi[x]);
+                    listennListeEnnemiVivant[x].MissileEnnemi.SuppresionMissile();
+                    vaisseau.score += listennListeEnnemiVivant[x].pointEnnemi;
+                    listennListeEnnemiVivant.Remove(listennListeEnnemiVivant[x]);
                     if (x > 0)
                     {
                         x--;
                     }
-                    if (listennListeEnnemi.Count == 0)
+                    if (listennListeEnnemiVivant.Count == 0)
                     {
+                        if (intLangue == 0)
+                        {
                         FinDeLaPartie("Vous avez gagnez");
+                        }
+                        else
+                        {
+                            FinDeLaPartie("You win");
+                        }
                         break;
                     }
                 }
-                if (listennListeEnnemi[x].MissileEnnemi.MissileObstacle(vaisseau.Hauteur, vaisseau.Largeur))
+
+                if (listennListeEnnemiVivant[x].MissileEnnemi.MissileObstacle(vaisseau.Hauteur, vaisseau.Largeur))
                 {
-                    FinDeLaPartie("Vous avez perdu");
+                    if (intLangue == 0)
+                    {
+                        FinDeLaPartie("Vous avez perdu");
+                    }
+                    else
+                    {
+                        FinDeLaPartie("You lose");
+                    }
                     break;
                 }
                 if (intCompteur % 8 == 2)
                 {
-                    listennListeEnnemi[x].DeplacementVaisseau();
+                    listennListeEnnemiVivant[x].DeplacementVaisseau();
                 }
                 else if (intCompteur % 4 == 0)
                 {
                     AfficherPointFPS();
                 }
-                listennListeEnnemi[x].DirectionEnnemi();
-                listennListeEnnemi[x].MissileMouvement();
+                listennListeEnnemiVivant[x].DirectionEnnemi();
+                listennListeEnnemiVivant[x].MissileMouvement();
             }
             intCompteur++;
         }
 
         public void InsererDonnees()
         {
+            // insérer les données dans la base de donnée
             string connectionString = "Server=localhost;Port=6033;Database=db_space_invaders;User ID=root;Password=root;";
             MySqlConnection connection = new MySqlConnection(connectionString);
             MySqlCommand command = connection.CreateCommand();
@@ -288,20 +408,43 @@ namespace SpacyInvaders
                 connection.Open();
                 reader = command.ExecuteReader();
                 reader.Read();
-                command.CommandText = $"INSERT INTO t_joueur (idJoueur, jouPseudo, jouNombrePoints)VALUES('{reader.GetInt32(0) + 1}', '{/*nom joueur*/"test"}', '{vaisseau.score}'); ";
+                command.CommandText = $"INSERT INTO t_joueur (idJoueur, jouPseudo, jouNombrePoints)VALUES('{reader.GetInt32(0) + 1}', '{vaisseau.NomJoueur}', '{vaisseau.score}'); ";
                 reader.Close();
                 command.ExecuteNonQuery();
                 Console.CursorVisible = false;
+                if (intLangue == 0)
+                {
                 Console.WriteLine("Données de la partie envoyées dans la base de données");
+                }
+                else
+                {
+                    Console.WriteLine("Game data sent to database");
+                }
+            }
+            catch
+            {
+                if (intLangue == 0)
+                {
+                    Console.WriteLine("Une erreur ç'est produite avec la connexion");
+                }
+                else
+                {
+                    Console.WriteLine("An error occurred with the connection");
+                }
+            }
+            finally
+            {
                 connection.Close();
             }
-            catch (Exception ex)
 
+            if (intLangue == 0)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine("\nAppuyer pour continuer...");
             }
-            Console.WriteLine("Appuyer pour continuer...");
-            //Console.ReadLine();
+            else
+            {
+                Console.WriteLine("\nTouch for continue...");
+            }
         }
 
         public void AfficherPointFPS()
@@ -344,15 +487,49 @@ namespace SpacyInvaders
                     }
                     Console.WriteLine();
                 }
+            }
+            catch
+            {
+                Console.CursorVisible = false;
+                Console.WriteLine("        HIGHSCORE\n------------------------");
+                Console.SetCursorPosition(0, 3);
+                for (int x = 0; x < 5; x++)
+                {
+                    Console.Write(x + 1 + "   ");
+                    for (int y = 1; y < 3; y++)
+                    {
+                        if (y == 2)
+                        {
+                        Console.Write($"{7 - x}000");
+                        }
+                        if (y < 3 - 1)
+                        {
+                            Console.SetCursorPosition(20, x + 3);
+                        }
+                    }
+                    Console.WriteLine();
+                }
+                if (intLangue == 0)
+                {
+                    Console.WriteLine("\nLe Score est par défault");
+                }
+                else
+                {
+                    Console.WriteLine("\nScore is by default");
+                }
+            }
+            finally
+            {
                 connection.Close();
             }
-            catch (Exception ex)
-
+            if (intLangue == 0)
             {
-                Console.WriteLine(ex.Message);
+            Console.WriteLine("\n\nAppuyer pour continuer...");
             }
-            Console.WriteLine("Appuyer pour continuer...");
-            Console.ReadLine();
+            else
+            {
+                Console.WriteLine("\n\nTouch for continue...");
+            }
         }
     }
 }

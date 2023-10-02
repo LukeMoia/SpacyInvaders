@@ -14,7 +14,7 @@ namespace SpacyInvaders
         private string Skin { get; set; }
         public Missile MissileEnnemi { get; private set; }
         public int pointEnnemi { get; set; }
-        public Ennemi(int pointennemi, string skin, int hauteur, int largeur)
+        public Ennemi(int pointennemi, string skin, int hauteur, int largeur,int mouv)
         {
             pointEnnemi = pointennemi;
             Skin = skin;
@@ -23,7 +23,7 @@ namespace SpacyInvaders
             {
                 Largeur = largeur;
             }
-            Mouvement = 1;
+            Mouvement = mouv;
             MissileEnnemi = new Missile(Console.WindowHeight - 1, Largeur + Mouvement, "|", 1);
         }
         public void tirer()
@@ -62,17 +62,9 @@ namespace SpacyInvaders
 
         public void MissileMouvement()
         {
-            if (MissileEnnemi.MissileAfficher())
+            if (MissileEnnemi != null)
             {
-                MissileEnnemi.SuppresionMissile();
-                tirer();
-            }
-            else if (MissileEnnemi != null)
-            {
-                /*if (Skin != "E")
-                {*/
-                    MissileEnnemi.MisilleMouvement();
-                /*}*/
+                MissileEnnemi.MisilleMouvement();
             }
         }
     }

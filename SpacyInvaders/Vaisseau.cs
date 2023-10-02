@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 
 namespace SpacyInvaders
 {
@@ -11,10 +10,12 @@ namespace SpacyInvaders
         public int Largeur { get; private set; } = 10;
         private string Skin { get; set; }
         public Missile MissileVaisseau { get; private set; }
-        public Vaisseau(int hauteur, string skin)
+        public string NomJoueur { get; private set; }
+        public Vaisseau(int hauteur,int largeur, string skin)
         {
             Hauteur = hauteur;
             Skin = skin;
+            Largeur = largeur;
             MissileVaisseau = new Missile(0, Largeur, "|", -1);
         }
         public void tirer()
@@ -75,7 +76,16 @@ namespace SpacyInvaders
                 }
                 else
                 {
-                    Thread.Sleep(2000);
+                    // Thread.Sleep(200);
+                    Console.SetCursorPosition(0,1);
+                    Console.CursorVisible = true;
+                    Console.Write("Saisissez votre nom : ");
+                    NomJoueur = Console.ReadLine();
+                    if (NomJoueur == "")
+                    {
+                        NomJoueur = "Default";
+                    }
+                    Console.CursorVisible = false;
                     break;
                 }
             }

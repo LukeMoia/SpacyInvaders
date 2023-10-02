@@ -23,13 +23,13 @@ namespace SpacyInvaders
         public void MisilleMouvement() //pour faire avancer le missile dans jeux
         {
             SuppresionMissile();
-            if (Hauteur + Mouvement > 0 && Hauteur + Mouvement <= Console.WindowHeight)
+            if (Hauteur + Mouvement > 0 && Hauteur + Mouvement <= Console.WindowHeight - 1)
             {
                 Hauteur += Mouvement;
                 Console.SetCursorPosition(Largeur, Hauteur);
                 Console.Write(Skin);
             }
-            else if (Hauteur + Mouvement >= 0 && Hauteur + Mouvement <= Console.WindowHeight)
+            else if (Hauteur + Mouvement >= 0 && Hauteur + Mouvement <= Console.WindowHeight - 1)
             {
                 Hauteur += Mouvement;
             }
