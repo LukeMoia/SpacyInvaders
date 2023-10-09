@@ -18,17 +18,25 @@ namespace SpacyInvaders
             Largeur = largeur;
             MissileVaisseau = new Missile(0, Largeur, "|", -1);
         }
+
         public void tirer()
         {
+            // créer le missile qui vas être tirer
             MissileVaisseau = new Missile(Hauteur, Largeur, "|", -1);
         }
+
         public void ChangementMouvement(int val)
         {
+            // condition pour que le mouvement soit accepté
             if (val == 1 || val == -1)
             {
                 Mouvement = val;
             }
         }
+
+        /// <summary>
+        /// pour que le vaisseau ce déplace de droite à gauche si il ne déplace pas la fenètre
+        /// </summary>
         public void DeplacementVaisseau()
         {
             Console.SetCursorPosition(Largeur, Hauteur);
@@ -40,6 +48,7 @@ namespace SpacyInvaders
             Console.SetCursorPosition(Largeur, Hauteur);
             Console.Write(Skin);
         }
+
         public void AfficherVaisseau()
         {
             Console.SetCursorPosition(Largeur, Hauteur);

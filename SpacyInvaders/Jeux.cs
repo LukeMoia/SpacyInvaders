@@ -3,6 +3,7 @@ using System.Timers;
 using System.Threading;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
+using System.Diagnostics;
 
 namespace SpacyInvaders
 {
@@ -79,7 +80,7 @@ namespace SpacyInvaders
             strQuit = "";
             AffichageWidth = Console.BufferWidth; // pour l'affichage des points et FPS
             timTimerJeux = new System.Timers.Timer();
-            vaisseau = new Vaisseau(10, 10, "A");
+            vaisseau = new Vaisseau(10, 10 /*ou 0 (pour plus simple)*/, "A");
             listennListeEnnemiVivant.Clear();
             listennListeEnnemiVivant = new List<Ennemi>();
             ennemi1 = new Ennemi(3000, "T", 1, 0, 1);
@@ -126,6 +127,17 @@ namespace SpacyInvaders
             BoucleMenu();
         }
 
+        /// <summary>
+        /// Pour pouvoir faire la couleur^du menu
+        /// </summary>
+        /// <param name="color"></param>
+        /// <param name="Boucle"></param>
+        /// <param name="minimum"></param>
+        /// <param name="maximum"></param>
+        /// <param name="str1"></param>
+        /// <param name="str2"></param>
+        /// <param name="str3"></param>
+        /// <param name="str4"></param>
         private void MenuCouleur(ConsoleColor color, int Boucle, int minimum, int maximum, string str1, string str2, string str3, string str4)
         {
             Console.SetCursorPosition(0, Boucle);
@@ -453,6 +465,8 @@ namespace SpacyInvaders
             Console.Write(strPoints + vaisseau.score);
             Console.SetCursorPosition(Console.BufferWidth - strPoints.Length - 1, 1);
             Console.Write(strFPS + intLangue); // ajouter les fps TO DO
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
         }
 
         public void AfficherScore()

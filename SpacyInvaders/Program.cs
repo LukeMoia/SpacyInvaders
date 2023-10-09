@@ -14,12 +14,12 @@ namespace SpacyInvaders
         {
             /*
              to do list : le random des tires ennemis (fait)
-                          les commentaires (en cours)
+                          les commentaires (fait)
                           Icescrum
                           Francais/Englais (choisir une langue)
                           github/git
-                          (ajouter la musique)
-                          faire les FPS
+                          (ajouter la musique et pouvoir l'enlever dans les options (musique et bruitage))
+                          faire les FPS (en cours)
              */
             ///////////////////////////// déclaration des variables ///////////////////////////
             jeux jeu = new jeux();

@@ -20,6 +20,7 @@ namespace SpacyInvaders
             Skin = skin;
             Mouvement = mouvement;
         }
+
         public void MisilleMouvement() //pour faire avancer le missile dans jeux
         {
             SuppresionMissile();
@@ -45,6 +46,7 @@ namespace SpacyInvaders
         {
             return Hauteur == 0 || Hauteur >= Console.WindowHeight - 1;
         }
+
         public bool MissileObstacle(int hauteur, int longueur)
         {
             return hauteur == Hauteur && longueur == Largeur;
