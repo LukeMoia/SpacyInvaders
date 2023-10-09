@@ -46,6 +46,8 @@ namespace SpacyInvaders
         const string strNomJeux = "SpicyInvader II";
         const string strSousTitreJeu = "---------------";
         static Random Random = new Random();
+        Stopwatch stopwatch = new Stopwatch();
+        int nombreFPS = 0;
         public void AffichageMenuLangue() // début du jeux
         {
             for (; true;)
@@ -310,13 +312,16 @@ namespace SpacyInvaders
             timTimerJeux.Interval = 50;
             timTimerJeux.Start();
             timTimerJeux.Elapsed += Jeux;
-            AfficherPointFPS();
+            AfficherPoint();
+            AfficherFPS(0);
+            stopwatch.Start();
         }
 
         public void FinDeLaPartie(string message)
         {
             Console.Clear();
             timTimerJeux.Stop();
+            stopwatch.Stop();
             timTimerJeux.Enabled = false;
             timTimerJeux.Elapsed -= Jeux;
             Console.SetCursorPosition(0,0);
@@ -326,7 +331,7 @@ namespace SpacyInvaders
         private void Jeux(object valeur, System.Timers.ElapsedEventArgs Temps)
         {
             // pour le tir des ennemis
-            int Tir = Random.Next(0,9);
+            int Tir = Random.Next(0,4);
             List<int> TirList = new List<int>();
             for(int i = 0;i < Tir; i++)
             {
@@ -341,15 +346,27 @@ namespace SpacyInvaders
                     }
             }
 
-            // changement de la taille de fenètre
+            // pour afficher les fps
+            if (stopwatch.ElapsedMilliseconds >= 1000)
+            {
+                AfficherFPS(nombreFPS);
+                nombreFPS = 0;
+                stopwatch.Restart();
+            }
+            else
+            {
+                nombreFPS++;
+            }
+
+            // changement de la taille de la fenètre de jeux
             if (AffichageWidth != Console.BufferWidth)
             {
                 Console.Clear();
-                AfficherPointFPS();
+                AfficherPoint();
                 AffichageWidth = Console.BufferWidth;
             }
 
-            // condition de victoire/défaite et mouvement missile et vaisseau
+            // condition de victoire/défaite, point, mouvement missile et vaisseau
             Console.CursorVisible = false;
             vaisseau.AfficherVaisseau();
             vaisseau.MissileMouvement();
@@ -396,12 +413,24 @@ namespace SpacyInvaders
                 }
                 else if (intCompteur % 4 == 0)
                 {
-                    AfficherPointFPS();
+                    AfficherPoint();
                 }
                 listennListeEnnemiVivant[x].DirectionEnnemi();
                 listennListeEnnemiVivant[x].MissileMouvement();
             }
             intCompteur++;
+        }
+
+        public void AfficherPoint()
+        {
+            Console.SetCursorPosition(Console.BufferWidth - strPoints.Length - vaisseau.score.ToString().Length, 0);
+            Console.Write(strPoints + vaisseau.score);
+        }
+
+        public void AfficherFPS(int FPS)
+        {
+            Console.SetCursorPosition(Console.BufferWidth - strPoints.Length - 1, 1);
+            Console.Write(strFPS + FPS);
         }
 
         public void InsererDonnees()
@@ -457,16 +486,6 @@ namespace SpacyInvaders
             {
                 Console.WriteLine("\nTouch for continue...");
             }
-        }
-
-        public void AfficherPointFPS()
-        {
-            Console.SetCursorPosition(Console.BufferWidth - strPoints.Length - vaisseau.score.ToString().Length, 0);
-            Console.Write(strPoints + vaisseau.score);
-            Console.SetCursorPosition(Console.BufferWidth - strPoints.Length - 1, 1);
-            Console.Write(strFPS + intLangue); // ajouter les fps TO DO
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
         }
 
         public void AfficherScore()

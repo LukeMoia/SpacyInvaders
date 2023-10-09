@@ -62,10 +62,11 @@ namespace SpacyInvaders
 
         public void BoucleDeDéplacementJoueur(System.Timers.Timer time)
         {
-            ConsoleKey cskConsoleKey;
+            ConsoleKey cskConsoleKey = ConsoleKey.Z;
             for (int y = 0; ; y++)
             {
                 cskConsoleKey = Console.ReadKey(true).Key;
+
                 if (time.Enabled == true)
                 {
                     if (cskConsoleKey == ConsoleKey.Spacebar && MissileVaisseau.MissileAfficher())
@@ -85,7 +86,6 @@ namespace SpacyInvaders
                 }
                 else
                 {
-                    // Thread.Sleep(200);
                     Console.SetCursorPosition(0,1);
                     Console.CursorVisible = true;
                     Console.Write("Saisissez votre nom : ");
