@@ -5,7 +5,6 @@ D:\ETML_module_en_cours\Projet_SpacyInvaders\SpacyInvaders\obj\Debug\SpacyInvade
 D:\ETML_module_en_cours\Projet_SpacyInvaders\SpacyInvaders\obj\Debug\SpacyInvaders.csproj.CoreCompileInputs.cache
 D:\ETML_module_en_cours\Projet_SpacyInvaders\SpacyInvaders\obj\Debug\SpacyInvaders.exe
 D:\ETML_module_en_cours\Projet_SpacyInvaders\SpacyInvaders\obj\Debug\SpacyInvaders.pdb
-D:\ETML_module_en_cours\Projet_SpacyInvaders\SpacyInvaders\obj\Debug\SpacyInvaders.csproj.SuggestedBindingRedirects.cache
 D:\ETML_module_en_cours\Projet_SpacyInvaders\SpacyInvaders\bin\Debug\BouncyCastle.Crypto.dll
 D:\ETML_module_en_cours\Projet_SpacyInvaders\SpacyInvaders\bin\Debug\Google.Protobuf.dll
 D:\ETML_module_en_cours\Projet_SpacyInvaders\SpacyInvaders\bin\Debug\K4os.Compression.LZ4.dll
@@ -38,3 +37,4 @@ D:\ETML_module_en_cours\Projet_SpacyInvaders\SpacyInvaders\bin\Debug\System.Nume
 D:\ETML_module_en_cours\Projet_SpacyInvaders\SpacyInvaders\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
 D:\ETML_module_en_cours\Projet_SpacyInvaders\SpacyInvaders\bin\Debug\System.Threading.Tasks.Extensions.xml
 D:\ETML_module_en_cours\Projet_SpacyInvaders\SpacyInvaders\obj\Debug\SpacyInvaders.csproj.CopyComplete
+D:\ETML_module_en_cours\Projet_SpacyInvaders\SpacyInvaders\obj\Debug\SpacyInvaders.csproj.SuggestedBindingRedirects.cache

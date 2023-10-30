@@ -4,9 +4,13 @@ using System.Threading;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 using System.Diagnostics;
+using System.Media;
 
 namespace SpacyInvaders
 {
+    /// <summary>
+    /// La classe jeux sert a faire marcher le jeux
+    /// </summary>
     internal class jeux
     {
         // variable universelle pour la classe
@@ -48,6 +52,8 @@ namespace SpacyInvaders
         static Random Random = new Random();
         Stopwatch stopwatch = new Stopwatch();
         int nombreFPS = 0;
+        SoundPlayer player = new SoundPlayer(); // ajoute le sons de la musique
+        bool bolMusique = true;
         public void AffichageMenuLangue() // début du jeux
         {
             for (; true;)
@@ -108,6 +114,13 @@ namespace SpacyInvaders
             listennListeEnnemi = new List<Ennemi>() { ennemi1, ennemi2, ennemi3, ennemi4, ennemi5, ennemi6, ennemi7, ennemi8, ennemi9, ennemi10, ennemi11, ennemi12, ennemi13, ennemi14, ennemi15, ennemi16, ennemi17, ennemi18, ennemi19, ennemi20 };
 
             ///////////////////// program /////////////////////
+            if (bolMusique == true)
+            {
+            player.Stop();
+            player.SoundLocation = "music_game.wav";
+            player.PlayLooping();
+            }
+
             if (intLangue == 0)
             {
                 strPlay = "1.Jouer";
@@ -218,7 +231,7 @@ namespace SpacyInvaders
             return x - intMin;
         }
 
-        private int Boucle(int minimum, int maximu, string str1, string str2, string strmenu)
+        private int Boucle(int minimum, int maximu, string str1, string str2, string str3, string strmenu)
         {
             ConsoleKey cskConsole = ConsoleKey.A;
             int intMax = maximu;
@@ -230,8 +243,8 @@ namespace SpacyInvaders
             {
                 Console.Clear();
                 Console.SetCursorPosition(0, 0);
-                Console.WriteLine($"{strmenu}\n{strSousTitreJeu}\n\n{str1}\n{str2}");
-                MenuCouleur(ConsoleColor.Red, x, intMin, maximu, str1, str2, null, null);
+                Console.WriteLine($"{strmenu}\n{strSousTitreJeu}\n\n{str1}\n{str2}\n{str3}");
+                MenuCouleur(ConsoleColor.Red, x, intMin, maximu, str1, str2, str3, null);
                 Console.BackgroundColor = ConsoleColor.Black;
                 Console.WriteLine();
                 cskConsole = Console.ReadKey().Key;
@@ -271,13 +284,29 @@ namespace SpacyInvaders
                 // méthode pour lancer le jeu
                 LancerLeJeu();
                 vaisseau.BoucleDeDéplacementJoueur(timTimerJeux);
+                InsererDonnees();
+                Console.ReadLine();
             }
             else if (x == 1)
             {
                 // méthode pour les options
                 Console.Clear();
                 Console.SetCursorPosition(0, 0);
-                intLangue = Boucle(3, 4, "Francais", "English", "Option");
+                int temp = Boucle(3, 5, "Francais", "English", $"Musique : {bolMusique}", "Option");
+                if (temp == 0 || temp == 1)
+                {
+                intLangue = temp;
+                }
+                else if(bolMusique == true)
+                {
+                    bolMusique = false;
+                    player.Stop();
+                }
+                else
+                {
+                    bolMusique = true;
+                    player.PlayLooping();
+                }
                 //// ajouter du son
 
             }
@@ -285,13 +314,12 @@ namespace SpacyInvaders
             {
                 // méthode pour les résultats
                 AfficherScore();
+                Console.ReadLine();
             }
             else
             {
                 Environment.Exit(0);
             }
-            InsererDonnees();
-            Console.ReadLine();
             AffichageMenuPourJouer();
         }
 
@@ -315,6 +343,12 @@ namespace SpacyInvaders
             AfficherPoint();
             AfficherFPS(0);
             stopwatch.Start();
+            if (bolMusique == true)
+            {
+            player.Stop();
+            player.SoundLocation = "MusiqueCombat.wav";
+            player.Play();
+            }
         }
 
         public void FinDeLaPartie(string message)
@@ -326,6 +360,10 @@ namespace SpacyInvaders
             timTimerJeux.Elapsed -= Jeux;
             Console.SetCursorPosition(0,0);
             Console.WriteLine(message);
+            if (bolMusique == true)
+            {
+                player.Stop();
+            }
         }
 
         private void Jeux(object valeur, System.Timers.ElapsedEventArgs Temps)
@@ -385,7 +423,7 @@ namespace SpacyInvaders
                     {
                         if (intLangue == 0)
                         {
-                        FinDeLaPartie("Vous avez gagnez");
+                        FinDeLaPartie("Vous avez gagné");
                         }
                         else
                         {

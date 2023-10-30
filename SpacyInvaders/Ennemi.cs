@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace SpacyInvaders
 {
+    /// <summary>
+    /// La classe Ennemi sert à créer un ennemi avec toute les fonctionalitées et attributs qui vont avec
+    /// </summary>
     internal class Ennemi
     {
         public int Hauteur { get; private set; }

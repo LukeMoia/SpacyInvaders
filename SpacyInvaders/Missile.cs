@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace SpacyInvaders
 {
-    internal class Missile
+    /// <summary>
+    /// La classe Missile sert à créer un missile avec toute les fonctionalitées et attributs qui vont avec
+    /// </summary>
+    public class Missile
     {
         private int Hauteur { get; set; }
         private string Skin { get; set; }

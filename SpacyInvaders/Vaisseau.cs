@@ -2,6 +2,9 @@
 
 namespace SpacyInvaders
 {
+    /// <summary>
+    /// La classe Vaisseau sert à créer le vaisseau du joueur avec toute les fonctionalitées et attributs qui vont avec
+    /// </summary>
     internal class Vaisseau
     {
         public int score { get; set; }
