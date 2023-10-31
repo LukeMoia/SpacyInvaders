@@ -292,7 +292,15 @@ namespace SpacyInvaders
                 // méthode pour les options
                 Console.Clear();
                 Console.SetCursorPosition(0, 0);
-                int temp = Boucle(3, 5, "Francais", "English", $"Musique : {bolMusique}", "Option");
+                int temp = 0;
+                if (intLangue == 0)
+                {
+                  temp = Boucle(3, 5, "Francais", "Englais", $"Musique : {bolMusique}", "Option");
+                }
+                else
+                {
+                  temp = Boucle(3, 5, "French", "English", $"Music : {bolMusique}", "Option");
+                }
                 if (temp == 0 || temp == 1)
                 {
                 intLangue = temp;
